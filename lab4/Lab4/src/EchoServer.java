@@ -19,7 +19,6 @@ public class EchoServer {
             clientSocket = serverSocket.accept();
         } catch (IOException e) {
             System.err.println("Accept failed.");
-
             System.exit(1);
         }
 
