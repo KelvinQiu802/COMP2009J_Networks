@@ -35,6 +35,9 @@ public class EchoClient {
         System.out.print("input: ");
         while ((userInput = stdIn.readLine()) != null) {
             out.println(userInput);
+            if (userInput.equals("Bye")) {
+                break;
+            }
             System.out.println("echo: " + in.readLine());
             System.out.print("input: ");
         }

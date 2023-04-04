@@ -16,33 +16,16 @@ public class EchoServer {
         System.out.println("Waiting for connection.....");
 
         try {
-            clientSocket = serverSocket.accept();
+            while (true) {
+                clientSocket = serverSocket.accept();
+                Thread serverThread = new Thread(new ServerThread(serverSocket, clientSocket));
+                serverThread.start();
+            }
+//            serverSocket.close();
         } catch (IOException e) {
             System.err.println("Accept failed.");
             System.exit(1);
         }
 
-        System.out.println("Connection successful");
-        System.out.println("Waiting for input.....");
-
-        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),
-                true);
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(clientSocket.getInputStream()));
-
-        String inputLine;
-
-        while ((inputLine = in.readLine()) != null) {
-            System.out.println("Server: " + inputLine);
-            out.println(inputLine);
-
-            if (inputLine.equals("Bye."))
-                break;
-        }
-
-        out.close();
-        in.close();
-        clientSocket.close();
-        serverSocket.close();
     }
 } 
